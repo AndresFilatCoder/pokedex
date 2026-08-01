@@ -10,6 +10,7 @@ Aplicación web moderna construida con **Nuxt 3** que explora el fascinante mund
 - 🚀 Instalación
 - 🛠️ Tecnologías Utilizadas
 - 📁 Estructura del Proyecto
+- ✨ Principales Funcionalidades
 - 📝 Decisiones Técnicas
 - 🧩 Arquitectura y Patrones de Diseño
 - 📊 Manejo de Estados y Errores
@@ -39,6 +40,7 @@ npm install
 
 # Iniciar servidor de desarrollo
 npm run dev
+```
 
 ---
 
@@ -85,6 +87,20 @@ Framework de componentes para Nuxt 3 que ofrece una variedad de componentes pred
 
 ---
 
+## ✨ Principales funcionalidades
+
+- 📋 Listado de Pokémon
+- 🔍 Búsqueda por nombre
+- 🏷️ Filtro por tipo
+- ❤️ Favoritos persistidos con Pinia
+- 📖 Vista de detalle
+- 📋 Copiar información al portapapeles
+- 🔊 Reproducción del sonido del Pokémon
+- ⚠️ Manejo de errores
+- 🚫 Página 404
+
+---
+
 ## 📝 Decisiones Técnicas
 
 * Uso de Nuxt 3: Se eligió Nuxt 3 por su arquitectura optimizada, integración automática con Vue 3 y su soporte nativo para SSG/SSR. Esto permite una carga rápida de la página y una mejor experiencia de usuario.
@@ -106,8 +122,6 @@ Framework de componentes para Nuxt 3 que ofrece una variedad de componentes pred
 ---
 
 ## 🧩 Arquitectura y Patrones de Diseño
-
-**Factory Pattern (implícito)**: En los servicios se podría extender fácilmente a múltiples endpoints o entidades, generando diferentes factories para diferentes recursos de la API.
 
 **Composables**: A través de los composables, se reutiliza y comparte lógica entre componentes sin duplicación de código.
 
@@ -225,6 +239,7 @@ Esta guía está diseñada para facilitar la comprensión, extensión y mantenim
 
 📁 **public/** - Archivos estáticos publicos como imágenes, fuentes, gifs, etc.
 
+---
 
 🧩 **Tener en cuenta antes de añadir una Nueva Funcionalidad**
 
@@ -234,7 +249,7 @@ Esta guía está diseñada para facilitar la comprensión, extensión y mantenim
 
 3. Crear un Composables si se necesita lógica reutilizable.
 
-34. Construir uno o más Componentes si se necesita representación visual (Separation of Concerns).
+4. Construir uno o más Componentes si se necesita representación visual (Separation of Concerns).
 
 5. Agregar una nueva Página en **pages/** si se requiere una ruta específica.
 
@@ -246,7 +261,7 @@ Esta guía está diseñada para facilitar la comprensión, extensión y mantenim
 
 🔧 Optimización de rendimiento: Implementar lazy loading en imágenes y recursos pesados.
 
-🔧 Carga de imágenes y documentos: Solicitar recursos directamente de S3 para liberar peso y optimizar aún más la carga de recursos estáticos.
+🔧 Carga de imágenes y multimedia en general: Solicitar recursos directamente de S3 para liberar peso y optimizar aún más la carga de recursos estáticos como imagenes y gifs.
 
 🔧 Ampliar las funcionalidades: Integrar el sistema de favoritos directamente con el backend en vez de guardar los datos en el store de Pinia.
 
