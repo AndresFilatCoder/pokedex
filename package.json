@@ -37,6 +37,7 @@
     "eslint-plugin-vue": "^10.10.0",
     "nuxt": "^4.5.0",
     "pinia": "^4.0.2",
+    "pinia-plugin-persistedstate": "^4.7.1",
     "prettier": "^3.9.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",

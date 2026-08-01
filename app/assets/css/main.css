@@ -2,7 +2,31 @@
 @import "@nuxt/ui";
 
 @layer components {
-  .text-link {
-    @apply font-semibold text-indigo-400 hover:text-indigo-300 hover:underline;
+  .bg-pokemon-light-green {
+    background-color: #CFEBA7;
+  }
+
+  .bg-pokemon-green {
+    background-color: #78C850;
+  }
+
+  .bg-pokemon-dark-green {
+    background-color: #9ED63A;
+  }
+
+  .bg-pokemon-lime {
+    background-color: #8BCC45;
+  }
+
+  .bg-pokemon-gray {
+    background-color: #F8F9FA;
+  }
+
+  .bg-pokemon-blue {
+    background-color: #3B5998;
+  }
+
+  .bg-pokemon-pink {
+    background-color: #FF6B81;
   }
 }
