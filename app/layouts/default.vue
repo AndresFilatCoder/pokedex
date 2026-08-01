@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import TopNavbar from '~/components/layout/TopNavbar.vue'
+import TopNavbar from '~/components/layout/TopNavbar/TopNavbar.vue'
 </script>
 
 <template>
   <div>
     <TopNavbar />
-    <main>
+    <main class="min-h-[calc(100vh-64px)]">
       <slot />
     </main>
   </div>
