@@ -39,12 +39,6 @@ npm install
 
 # Iniciar servidor de desarrollo
 npm run dev
-```
-
-Para ejecutar las pruebas unitarias:
-```bash
-npm run test
-```
 
 ---
 
