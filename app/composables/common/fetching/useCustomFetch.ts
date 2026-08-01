@@ -6,7 +6,7 @@ const useCustomFetch = () => {
 
   const getOptions = <T>(options: UseFetchOptions<T> = {}) => ({
     baseURL: apiUrl,
-    immediate: options.immediate || false,
+    immediate: options.immediate ?? false,
     ...options
   })
 
