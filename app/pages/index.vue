@@ -33,10 +33,5 @@ onBeforeMount(() => setPokemonList())
   >
     <Loader text="Liberando Pokémones..." />
   </div>
-  <PokemonCardsContainer v-else-if="pokemonList?.results?.length" :pokemons="pokemonList.results" />
-  <FallbackDisplay
-    v-else
-    title="Sin resultados"
-    subtitle="No se han encontrado resultados de acuerdo a los filtros aplicados."
-  />
+  <PokemonCardsContainer v-else :pokemons="pokemonList?.results || []" />
 </template>

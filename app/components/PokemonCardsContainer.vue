@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PokemonCard from '~/components/PokemonCard.vue'
 import type { Pokemon } from '~/services/interfaces/pokemon'
+import FallbackDisplay from './common/FallbackDisplay.vue'
 
 const props = defineProps<{
   pokemons: Pokemon[]
@@ -63,7 +64,10 @@ onBeforeMount(() => setIsFavorite())
 </script>
 
 <template>
-  <div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 p-5">
+  <div
+    v-if="filteredPokemons.length"
+    class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 p-5"
+  >
     <PokemonCard
       v-for="(pokemon, index) in filteredPokemons"
       :key="index"
@@ -72,4 +76,9 @@ onBeforeMount(() => setIsFavorite())
       @toggle-favorite="onToggleFavorite(pokemon)"
     />
   </div>
+  <FallbackDisplay
+    v-else
+    title="Sin resultados"
+    subtitle="No se han encontrado resultados de acuerdo a los filtros aplicados."
+  />
 </template>
