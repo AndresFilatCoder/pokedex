@@ -142,7 +142,10 @@ flowchart TD
     %% Inicio / Enrutamiento
     Start([Usuario ingresa a la App]) --> RouteCheck{¿La ruta existe?}
     
+    %% Ruta No Existe -> Fin de Flujo
     RouteCheck -- No --> Page404[Página 404: Not Found]
+
+    %% Ruta Sí Existe -> App UI
     RouteCheck -- Sí --> MainApp[Navegación / App UI]
 
     %% Vistas Principales
@@ -150,7 +153,7 @@ flowchart TD
     MainApp --> FavPage[/Página de Favoritos: favorites.vue\]
 
     %% --- FLUJO EN POKÉDEX ---
-    subgraph Pokédex [/Página Pokédex\]
+    subgraph Pokedex ["Página Pokédex"]
         Home --> ListAll[Mostrar lista completa de Pokémon]
         
         %% Búsqueda y Filtros
@@ -170,7 +173,7 @@ flowchart TD
     end
 
     %% --- FLUJO EN FAVORITOS ---
-    subgraph Favoritos [/Página Favoritos\]
+    subgraph Favoritos ["Página Favoritos"]
         FavPage --> ReadStore[Cargar Pokémon desde favoritesStore]
         ReadStore --> ListFavs[Mostrar lista de favoritos]
         
@@ -192,7 +195,7 @@ flowchart TD
     ClickCardPokedex --> DetailsPage[/Página de Detalles: details/:id.vue\]
     ClickCardFavs --> DetailsPage
 
-    subgraph Detalles [/Página de Detalles\]
+    subgraph Detalles ["Página de Detalles"]
         DetailsPage --> ShowDetails[Mostrar info extendida: Stats, Tipo, Habilidades, etc.]
     end
 
