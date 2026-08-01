@@ -1,5 +1,5 @@
 import type { PokemonDetails, PokemonType } from '~/services/interfaces/pokemonDetails'
-import type { PokemonSpecie } from '~/services/interfaces/pokemonSpecie'
+import type { FlavorTextEntry, Genus, PokemonSpecie } from '~/services/interfaces/pokemonSpecie'
 import { usePokemon } from '~/services/usePokemon'
 
 export const useHelper = () => {
@@ -12,8 +12,8 @@ export const useHelper = () => {
     female: 0
   }
   let weaknesses: string[] = []
-  let flavor: any = null
-  let genus: any = null
+  let flavor: FlavorTextEntry | undefined = undefined
+  let genus: Genus | undefined = undefined
 
   const setSpecies = async (pokemonId: number) => {
     let species: PokemonSpecie | null = null
@@ -31,14 +31,14 @@ export const useHelper = () => {
 
   const loadSpecies = (species: PokemonSpecie) => {
     flavor =
-      species.flavor_text_entries.find((entry: any) => entry.language.name === 'es') ??
-      species.flavor_text_entries.find((entry: any) => entry.language.name === 'en')
+      species.flavor_text_entries.find(entry => entry.language.name === 'es') ??
+      species.flavor_text_entries.find(entry => entry.language.name === 'en')
 
     description = flavor?.flavor_text.replace(/\f/g, ' ') ?? ''
 
     genus =
-      species.genera.find((entry: any) => entry.language.name === 'es') ??
-      species.genera.find((entry: any) => entry.language.name === 'en')
+      species.genera.find(entry => entry.language.name === 'es') ??
+      species.genera.find(entry => entry.language.name === 'en')
 
     category = genus?.genus ?? ''
 
@@ -53,16 +53,16 @@ export const useHelper = () => {
 
     const damage: Record<string, number> = {}
 
-    pokemonTypes.forEach((type: any) => {
-      type.damage_relations.double_damage_from.forEach((item: any) => {
+    pokemonTypes.forEach(type => {
+      type.damage_relations.double_damage_from.forEach(item => {
         damage[item.name] = (damage[item.name] ?? 0) + 1
       })
 
-      type.damage_relations.half_damage_from.forEach((item: any) => {
+      type.damage_relations.half_damage_from.forEach(item => {
         damage[item.name] = (damage[item.name] ?? 0) - 1
       })
 
-      type.damage_relations.no_damage_from.forEach((item: any) => {
+      type.damage_relations.no_damage_from.forEach(item => {
         damage[item.name] = -999
       })
     })

@@ -20,6 +20,13 @@ export interface Ability {
 export interface PokemonType {
   slot: number
   type: NamedApiResource
+  damage_relations: DamageRelations
+}
+
+export interface DamageRelations {
+  double_damage_from: NamedApiResource[]
+  half_damage_from: NamedApiResource[]
+  no_damage_from: NamedApiResource[]
 }
 
 export interface NamedApiResource {

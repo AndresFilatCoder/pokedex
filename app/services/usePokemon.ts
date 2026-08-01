@@ -1,6 +1,7 @@
 import useCustomFetch from '~/composables/common/fetching/useCustomFetch'
 import type { PokemonList } from './interfaces/pokemon'
 import type { PokemonDetails, PokemonType } from './interfaces/pokemonDetails'
+import type { PokemonSpecie } from './interfaces/pokemonSpecie'
 
 export const usePokemon = () => {
   const $api = useCustomFetch()
@@ -13,7 +14,7 @@ export const usePokemon = () => {
   }
 
   const getSpecies = async (id: number) => {
-    const { data, error } = await $api.get<any>(`/pokemon-species/${id}`)
+    const { data, error } = await $api.get<PokemonSpecie>(`/pokemon-species/${id}`)
 
     if (error.value) throw error.value
     return data.value || null
@@ -36,7 +37,7 @@ export const usePokemon = () => {
   }
 
   const getWeaknesses = async (types: string[]) =>
-    await Promise.all(types.map(type => $api.get<any>(`/type/${type}`)))
+    await Promise.all(types.map(type => $api.get<PokemonType>(`/type/${type}`)))
 
   const getType = async (name: string) => {
     const { data, error } = await $api.get<PokemonType>(`/type/${name}`)
