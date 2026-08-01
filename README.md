@@ -89,7 +89,7 @@ Framework de componentes para Nuxt 3 que ofrece una variedad de componentes pred
 
 * Uso de Nuxt 3: Se eligió Nuxt 3 por su arquitectura optimizada, integración automática con Vue 3 y su soporte nativo para SSG/SSR. Esto permite una carga rápida de la página y una mejor experiencia de usuario.
 
-* Uso de Tailwind CSS: Utilizamos Tailwind CSS para acelerar el desarrollo de la interfaz, centrándonos en su sistema de grid y componentes básicos. Además, se integró con NuxtUI para obtener componentes predefinidos y estilos preconfigurados para una integración rápida y fácil en proyectos Nuxt 3.
+* Uso de Tailwind CSS: Se eligió Tailwind CSS para acelerar el desarrollo de la interfaz, centrándonos en su sistema de grid y componentes básicos. Además, se integró con NuxtUI para obtener componentes predefinidos y estilos preconfigurados para una integración rápida y fácil en proyectos Nuxt 3.
 
 * Uso de Iconify: Se implementó Iconify para implementar de forma sencilla y rápida iconos flexibles, permitiendo una implementación rápida, robusta y limpia.
 
