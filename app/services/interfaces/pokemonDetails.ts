@@ -3,6 +3,18 @@ export interface PokemonDetails {
   name: string
   sprites: PokemonSprite
   types: PokemonType[]
+  height: number
+  weight: number
+  abilities: Ability[]
+  cries: Cries
+}
+
+export interface Cries {
+  latest: string
+}
+
+export interface Ability {
+  ability: NamedApiResource
 }
 
 export interface PokemonType {

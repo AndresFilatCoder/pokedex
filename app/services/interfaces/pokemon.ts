@@ -11,4 +11,5 @@ export interface Pokemon {
   name: string
   url: string
   details: PokemonDetails | null
+  isFavorite?: boolean
 }
