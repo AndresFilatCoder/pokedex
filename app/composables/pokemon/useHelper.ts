@@ -1,0 +1,96 @@
+import type { PokemonDetails, PokemonType } from '~/services/interfaces/pokemonDetails'
+import type { PokemonSpecie } from '~/services/interfaces/pokemonSpecie'
+import { usePokemon } from '~/services/usePokemon'
+
+export const useHelper = () => {
+  const { getSpecies, getType } = usePokemon()
+
+  let description = ''
+  let category = ''
+  let gender = {
+    male: 0,
+    female: 0
+  }
+  let weaknesses: string[] = []
+  let flavor: any = null
+  let genus: any = null
+
+  const setSpecies = async (pokemonId: number) => {
+    let species: PokemonSpecie | null = null
+    species = await getSpecies(pokemonId)
+
+    if (!species) return
+    loadSpecies(species)
+  }
+
+  const setWaknesses = async (types: string[]) => {
+    let pokemonTypes: PokemonType[] | null = []
+    pokemonTypes = (await Promise.all(types.map(type => getType(type)))) as PokemonType[]
+    loadWeaknesses(pokemonTypes)
+  }
+
+  const loadSpecies = (species: PokemonSpecie) => {
+    flavor =
+      species.flavor_text_entries.find((entry: any) => entry.language.name === 'es') ??
+      species.flavor_text_entries.find((entry: any) => entry.language.name === 'en')
+
+    description = flavor?.flavor_text.replace(/\f/g, ' ') ?? ''
+
+    genus =
+      species.genera.find((entry: any) => entry.language.name === 'es') ??
+      species.genera.find((entry: any) => entry.language.name === 'en')
+
+    category = genus?.genus ?? ''
+
+    gender = {
+      female: species.gender_rate === -1 ? 0 : species.gender_rate * 12.5,
+      male: species.gender_rate === -1 ? 0 : 100 - species.gender_rate * 12.5
+    }
+  }
+
+  const loadWeaknesses = (pokemonTypes: PokemonType[]) => {
+    if (!pokemonTypes) return
+
+    const damage: Record<string, number> = {}
+
+    pokemonTypes.forEach((type: any) => {
+      type.damage_relations.double_damage_from.forEach((item: any) => {
+        damage[item.name] = (damage[item.name] ?? 0) + 1
+      })
+
+      type.damage_relations.half_damage_from.forEach((item: any) => {
+        damage[item.name] = (damage[item.name] ?? 0) - 1
+      })
+
+      type.damage_relations.no_damage_from.forEach((item: any) => {
+        damage[item.name] = -999
+      })
+    })
+
+    weaknesses = Object.entries(damage)
+      .filter(([_, value]) => value > 0)
+      .map(([key]) => key)
+  }
+
+  const getProcessedPokemonDetails = async (pokemonDetails: PokemonDetails) => {
+    await setSpecies(pokemonDetails.id)
+    await setWaknesses(pokemonDetails.types.map(type => type.type.name))
+
+    return {
+      sprite: pokemonDetails.sprites.front_default,
+      name: pokemonDetails.name,
+      types: pokemonDetails.types.map(type => type.type.name),
+      description: description,
+      weight: `${(pokemonDetails.weight / 10).toFixed(1)}`,
+      height: `${(pokemonDetails.height / 10).toFixed(1)}`,
+      category: category,
+      ability: pokemonDetails.abilities[0]?.ability.name ?? '',
+      male: gender.male,
+      female: gender.female,
+      weaknesses: weaknesses,
+      position: String(pokemonDetails.id).padStart(3, '0')
+    }
+  }
+
+  return { getProcessedPokemonDetails }
+}
