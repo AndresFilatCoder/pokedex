@@ -27,7 +27,7 @@ const setPokemonDetails = async () => {
   try {
     pokemonDetails.value = await getPokemonDetails(pokemonName as string)
   } catch (error) {
-    console.log(error)
+    console.error(error)
     return
   }
 

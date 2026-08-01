@@ -30,7 +30,6 @@ const onToggleFavorite = (pokemon: Pokemon) => {
 }
 
 const filterPokemons = (filters: Filters) => {
-  console.log(navbarStore.filtersApplied)
   if (!navbarStore.filtersApplied) {
     filteredPokemons.value = props.pokemons
     return
