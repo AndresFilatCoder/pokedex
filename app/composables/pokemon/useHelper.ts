@@ -1,8 +1,10 @@
 import type { PokemonDetails, PokemonType } from '~/services/interfaces/pokemonDetails'
 import type { FlavorTextEntry, Genus, PokemonSpecie } from '~/services/interfaces/pokemonSpecie'
 import { usePokemon } from '~/services/usePokemon'
+import { useCustomToast } from '../common/toast/useCustomToast'
 
 export const useHelper = () => {
+  const toast = useCustomToast()
   const { getSpecies, getType } = usePokemon()
 
   let description = ''
@@ -17,7 +19,15 @@ export const useHelper = () => {
 
   const setSpecies = async (pokemonId: number) => {
     let species: PokemonSpecie | null = null
-    species = await getSpecies(pokemonId)
+    try {
+      species = await getSpecies(pokemonId)
+    } catch {
+      toast.add({
+        title: 'Error',
+        message: 'Failed to fetch Pokémon species'
+      })
+      return
+    }
 
     if (!species) return
     loadSpecies(species)
@@ -25,7 +35,18 @@ export const useHelper = () => {
 
   const setWaknesses = async (types: string[]) => {
     let pokemonTypes: PokemonType[] | null = []
-    pokemonTypes = (await Promise.all(types.map(type => getType(type)))) as PokemonType[]
+    pokemonTypes = (await Promise.all(
+      types.map(type => {
+        try {
+          return getType(type)
+        } catch {
+          toast.add({
+            title: 'Error',
+            message: 'Failed to fetch Pokémon type'
+          })
+        }
+      })
+    )) as PokemonType[]
     loadWeaknesses(pokemonTypes)
   }
 

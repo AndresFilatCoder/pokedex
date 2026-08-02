@@ -6,8 +6,10 @@ import type { PokemonDetails } from '~/services/interfaces/pokemonDetails'
 import { usePokemon } from '~/services/usePokemon'
 import { useHelper } from '~/composables/pokemon/useHelper'
 import type { ProcessedPokemonDetails } from '~/composables/pokemon/interfaces/processedPokemonDetails'
+import { useCustomToast } from '~/composables/common/toast/useCustomToast'
 
 const route = useRoute()
+const toast = useCustomToast()
 
 const { getPokemonDetails } = usePokemon()
 const { getProcessedPokemonDetails } = useHelper()
@@ -26,8 +28,11 @@ const setPokemonDetails = async () => {
 
   try {
     pokemonDetails.value = await getPokemonDetails(pokemonName as string)
-  } catch (error) {
-    console.error(error)
+  } catch {
+    toast.add({
+      title: 'Error',
+      message: 'Failed to fetch Pokémon details'
+    })
     return
   }
 

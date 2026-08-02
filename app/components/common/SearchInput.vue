@@ -57,10 +57,13 @@ const onClear = () => {
       v-bind="props.inputAttributes"
       @input="onSearch($event.target.value)"
     >
-      <ClearButton
+      <UButton
         v-if="searchText && props.showClearButton"
+        color="neutral"
+        variant="link"
+        icon="i-lucide-x"
         class="px-0! absolute right-2"
-        @clear="onClear()"
+        @click="onClear()"
       />
     </UInput>
 

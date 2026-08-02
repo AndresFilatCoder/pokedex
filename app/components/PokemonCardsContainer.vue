@@ -15,8 +15,6 @@ useSeoMeta({
 const navbarStore = useNavbarStore()
 const favoritesStore = useFavoritesStore()
 
-const filteredPokemons = ref(props.pokemons)
-
 const setIsFavorite = () => {
   props.pokemons.forEach(pokemon => {
     pokemon.isFavorite = favoritesStore.favoritePokemons.some(
@@ -31,25 +29,30 @@ const onToggleFavorite = (pokemon: Pokemon) => {
 }
 
 const filterPokemons = (filters: Filters) => {
+  let filteredPokemons = props.pokemons
+
   if (!navbarStore.filtersApplied) {
-    filteredPokemons.value = props.pokemons
-    return
+    filteredPokemons = props.pokemons
+    return filteredPokemons || []
   }
 
   if (filters.searchText.length) {
-    filteredPokemons.value = props.pokemons.filter(pokemon =>
+    filteredPokemons = filteredPokemons.filter(pokemon =>
       pokemon.name.toLowerCase().includes(filters.searchText.toLowerCase())
     )
   }
 
   if (filters.types.length) {
-    filteredPokemons.value = props.pokemons.filter(pokemon =>
+    filteredPokemons = filteredPokemons.filter(pokemon =>
       filters.types.every(type => pokemon.details?.types.some(t => t.type.name === type))
     )
   }
 
-  navbarStore.resultsCount = filteredPokemons.value.length
+  navbarStore.resultsCount = filteredPokemons.length
+  return filteredPokemons || []
 }
+
+const filteredPokemons = computed(() => filterPokemons(navbarStore.filters))
 
 watch(
   () => navbarStore.filters,

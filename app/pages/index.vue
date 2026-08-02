@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import FallbackDisplay from '~/components/common/FallbackDisplay.vue'
 import Loader from '~/components/common/Loader.vue'
 import PokemonCardsContainer from '~/components/PokemonCardsContainer.vue'
+import { useCustomToast } from '~/composables/common/toast/useCustomToast'
 import type { PokemonList } from '~/services/interfaces/pokemon'
 import { usePokemon } from '~/services/usePokemon'
 
+const toast = useCustomToast()
 const { getPokemonList } = usePokemon()
 
 const loading = ref(true)
@@ -12,10 +13,14 @@ const pokemonList = ref<PokemonList | null>(null)
 
 const setPokemonList = async () => {
   loading.value = true
+
   try {
     pokemonList.value = await getPokemonList()
-  } catch (error) {
-    console.error(error)
+  } catch {
+    toast.add({
+      title: 'Error',
+      message: 'Failed to fetch Pokémon list'
+    })
     return
   } finally {
     loading.value = false
